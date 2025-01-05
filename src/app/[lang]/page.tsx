@@ -118,7 +118,7 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                                     { src: images.fellowshipGroupPhoto5, alt: "Fellowship Group Photo 5" },
                                     { src: images.fellowshipGroupPhoto6, alt: "Fellowship Group Photo 6" },
                                 ]}
-                                autoPlayInterval={2000}
+                                autoPlayInterval={5000}
                             />
                         </Grid>
                     </Grid>
