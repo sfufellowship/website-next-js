@@ -15,6 +15,7 @@ import SectionHeader from "@/src/components/common/SectionHeader";
 import { introduction } from "@/src/content/introduction";
 import { activities } from "@/src/content/activities";
 import { members } from "@/src/content/members";
+import ImageCarousel from "@/src/components/carousel/ImageCarousel";
 
 export default function Home({ params: { lang } }: { params: { lang: "zh" | "en" } }) {
     const theme = useTheme();
@@ -108,23 +109,17 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={7}>
-                            <Box
-                                sx={{
-                                    position: "relative",
-                                    height: 400,
-                                    borderRadius: 2,
-                                    overflow: "hidden",
-                                    boxShadow: theme.shadows[10],
-                                }}
-                            >
-                                <Image
-                                    src={images.fellowshipGroupPhoto}
-                                    alt="Fellowship Group"
-                                    fill
-                                    style={{ objectFit: "cover" }}
-                                    sizes="(max-width: 600px) 100vw, 600px"
-                                />
-                            </Box>
+                            <ImageCarousel
+                                images={[
+                                    { src: images.fellowshipGroupPhoto, alt: "Fellowship Group Photo 1" },
+                                    { src: images.fellowshipGroupPhoto2, alt: "Fellowship Group Photo 2" },
+                                    { src: images.fellowshipGroupPhoto3, alt: "Fellowship Group Photo 3" },
+                                    { src: images.fellowshipGroupPhoto4, alt: "Fellowship Group Photo 4" },
+                                    { src: images.fellowshipGroupPhoto5, alt: "Fellowship Group Photo 5" },
+                                    { src: images.fellowshipGroupPhoto6, alt: "Fellowship Group Photo 6" },
+                                ]}
+                                autoPlayInterval={2000}
+                            />
                         </Grid>
                     </Grid>
                 </Container>

@@ -1,5 +1,10 @@
-import sfuBg from "@/public/img/sfu.png";
+import sfuBg from "@/public/img_new/sfu.png";
 import fellowshipGroupPhoto from "@/public/img_new/fellowship_group_photo.jpg";
+import fellowshipGroupPhoto2 from "@/public/img_new/fellowship_group_photo_2.jpg";
+import fellowshipGroupPhoto3 from "@/public/img_new/fellowship_group_photo_3.jpg";
+import fellowshipGroupPhoto4 from "@/public/img_new/fellowship_group_photo_4.jpg";
+import fellowshipGroupPhoto5 from "@/public/img_new/fellowship_group_photo_5.jpg";
+import fellowshipGroupPhoto6 from "@/public/img_new/fellowship_group_photo_6.jpg";
 import imgSquare1 from "@/public/img/img_square_1.jpg";
 import imgSquare2 from "@/public/img/img_square_2.jpg";
 import imgSquare3 from "@/public/img/img_square_3.jpg";
@@ -22,6 +27,11 @@ export const images = {
     // Main images
     sfuBg,
     fellowshipGroupPhoto,
+    fellowshipGroupPhoto2,
+    fellowshipGroupPhoto3,
+    fellowshipGroupPhoto4,
+    fellowshipGroupPhoto5,
+    fellowshipGroupPhoto6,
     bibleStudy,
     wechatQrCode,
 
