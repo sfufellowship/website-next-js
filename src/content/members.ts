@@ -58,7 +58,6 @@ export const members = {
                 description: "SFU Engineer Master毕业",
                 image: images.songhePhoto,
             },
-            // Add more members as needed
         ],
     },
     en: {
@@ -118,7 +117,6 @@ export const members = {
                 description: "SFU Engineer Master Graduate",
                 image: images.songhePhoto,
             },
-            // Add more members as needed
         ],
     },
 } as const;
