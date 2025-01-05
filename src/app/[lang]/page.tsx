@@ -1,11 +1,28 @@
 "use client";
 
-import { Box, Container, Typography, Grid, Card, CardContent, Paper, Divider, useTheme, alpha } from "@mui/material";
+import {
+    Box,
+    Container,
+    Typography,
+    Grid,
+    Card,
+    CardContent,
+    Paper,
+    Divider,
+    useTheme,
+    alpha,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
 import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { images } from "@/src/images";
+import GoogleCalendar from "@/src/components/GoogleCalendar";
+import GoogleForm from "@/src/components/GoogleForm";
 
 const translations = {
     zh: {
@@ -111,9 +128,15 @@ const translations = {
         },
         contact: {
             title: "联系我们",
+            infoTitle: "联系方式",
+            wechatTitle: "微信公众号二维码",
             address: "8888 University Drive, Burnaby, BC, Canada",
             email: "info@sfufellowship.org",
             phone: "778-891-6881",
+        },
+        events: {
+            title: "活动日历",
+            calendarTitle: "SFU团契活动日历",
         },
     },
     en: {
@@ -220,9 +243,15 @@ const translations = {
         },
         contact: {
             title: "Contact Us",
+            infoTitle: "Contact Information",
+            wechatTitle: "WeChat QR Code",
             address: "8888 University Drive, Burnaby, BC, Canada",
             email: "info@sfufellowship.org",
             phone: "778-891-6881",
+        },
+        events: {
+            title: "Events",
+            calendarTitle: "SFU Fellowship Events",
         },
     },
 } as const;
@@ -452,8 +481,21 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                 </Container>
             </Box>
 
-            {/* Contact Section */}
+            {/* Events Section */}
             <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
+                <Container maxWidth="lg">
+                    <Box sx={{ textAlign: "center", mb: 6 }}>
+                        <Typography variant="h4" component="h2" gutterBottom color="primary">
+                            {translations[lang].events.title}
+                        </Typography>
+                        <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
+                    </Box>
+                    <GoogleCalendar title={translations[lang].events.calendarTitle} />
+                </Container>
+            </Box>
+
+            {/* Contact Section */}
+            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
                 <Container maxWidth="lg">
                     <Box sx={{ textAlign: "center", mb: 6 }}>
                         <Typography variant="h4" component="h2" gutterBottom color="primary">
@@ -461,54 +503,43 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                         </Typography>
                         <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
                     </Box>
-                    <Grid container spacing={4} justifyContent="center">
-                        {[
-                            { icon: LocationOnIcon, text: translations[lang].contact.address },
-                            { icon: EmailIcon, text: translations[lang].contact.email },
-                            { icon: PhoneIcon, text: translations[lang].contact.phone },
-                        ].map((item, index) => (
-                            <Grid item xs={12} md={4} key={index}>
-                                <Paper
-                                    sx={{
-                                        p: 4,
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-                                        "&:hover": {
-                                            transform: "translateY(-4px)",
-                                            boxShadow: theme.shadows[8],
-                                        },
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            width: 80,
-                                            height: 80,
-                                            borderRadius: "50%",
-                                            bgcolor: alpha(theme.palette.primary.main, 0.1),
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            mb: 3,
-                                        }}
-                                    >
-                                        <item.icon sx={{ fontSize: 40, color: "primary.main" }} />
-                                    </Box>
-                                    <Typography
-                                        variant="h6"
-                                        align="center"
-                                        sx={{
-                                            color: "text.primary",
-                                            fontWeight: 500,
-                                        }}
-                                    >
-                                        {item.text}
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                        ))}
+                    <Grid container spacing={6}>
+                        <Grid item xs={12} md={5}>
+                            <Box sx={{ textAlign: "center" }}>
+                                <Typography variant="h5" gutterBottom>
+                                    {translations[lang].contact.infoTitle}
+                                </Typography>
+                                <List>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <LocationOnIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={translations[lang].contact.address} />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <EmailIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={translations[lang].contact.email} />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <PhoneIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={translations[lang].contact.phone} />
+                                    </ListItem>
+                                </List>
+                                <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+                                    {translations[lang].contact.wechatTitle}
+                                </Typography>
+                                <Box sx={{ position: "relative", width: "200px", height: "200px", mx: "auto", mt: 2 }}>
+                                    <Image src={images.wechatQrCode} alt="WeChat QR Code" fill style={{ objectFit: "contain" }} sizes="200px" />
+                                </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={7}>
+                            <GoogleForm />
+                        </Grid>
                     </Grid>
                 </Container>
             </Box>

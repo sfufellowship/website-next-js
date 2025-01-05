@@ -6,6 +6,7 @@ import imgSquare3 from "@/public/img/img_square_3.jpg";
 import imgSquare4 from "@/public/img/img_square_4.jpg";
 import imgSquare5 from "@/public/img/img_square_5.jpg";
 import bibleStudy from "@/public/img_new/bible_study.jpg";
+import wechatQrCode from "@/public/img_new/wechat_qr_code.jpg";
 
 // Team member photos
 import simonPhoto from "@/public/img/face/simon.jpg";
@@ -22,6 +23,7 @@ export const images = {
     sfuBg,
     fellowshipGroupPhoto,
     bibleStudy,
+    wechatQrCode,
 
     // Gallery images
     imgSquare1,
