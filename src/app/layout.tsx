@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import Providers from "../components/Providers";
-import Layout from "../components/Layout";
+import Providers from "@/src/components/common/Providers";
+import Layout from "@/src/components/layout/Layout";
 import "./globals.css";
 
 const openSans = Open_Sans({
