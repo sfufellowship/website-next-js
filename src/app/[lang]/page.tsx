@@ -144,8 +144,8 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
             {/* Events Section */}
             <Box id="events" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
                 <Container maxWidth="lg">
-                    <SectionHeader title={introduction[lang].title} />
-                    <GoogleCalendar title={introduction[lang].title} />
+                    <SectionHeader title={lang === "zh" ? "日历" : "Calendar"} />
+                    <GoogleCalendar />
                 </Container>
             </Box>
 

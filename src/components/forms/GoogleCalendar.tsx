@@ -3,15 +3,17 @@
 import { Box, Container, Typography } from "@mui/material";
 
 interface GoogleCalendarProps {
-    title: string;
+    title?: string;
 }
 
 export default function GoogleCalendar({ title }: GoogleCalendarProps) {
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
-            <Typography variant="h4" component="h2" gutterBottom align="center">
-                {title}
-            </Typography>
+            {title && (
+                <Typography variant="h4" component="h2" gutterBottom align="center">
+                    {title}
+                </Typography>
+            )}
             <Box
                 sx={{
                     width: "100%",
