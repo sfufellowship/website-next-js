@@ -1,10 +1,11 @@
 "use client";
 
-import { Box, Container, Typography, Grid, useTheme, alpha, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, Container, Typography, Grid, useTheme, alpha, List, ListItem, ListItemIcon, ListItemText, Modal } from "@mui/material";
 import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { useState } from "react";
 import { images } from "@/src/constants/images";
 import GoogleCalendar from "@/src/components/forms/GoogleCalendar";
 import GoogleForm from "@/src/components/forms/GoogleForm";
@@ -19,6 +20,17 @@ import ImageCarousel from "@/src/components/carousel/ImageCarousel";
 
 export default function Home({ params: { lang } }: { params: { lang: "zh" | "en" } }) {
     const theme = useTheme();
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState<string>("");
+
+    const handleImageClick = (imageSrc: string) => {
+        setSelectedImage(imageSrc);
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
 
     // Create activity cards
     const activityCards = activities[lang].items.map((activity, index) => (
@@ -119,11 +131,43 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                                     { src: images.fellowshipGroupPhoto6, alt: "Fellowship Group Photo 6" },
                                 ]}
                                 autoPlayInterval={5000}
+                                onImageClick={handleImageClick}
                             />
                         </Grid>
                     </Grid>
                 </Container>
             </Box>
+
+            <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="image-modal" aria-describedby="enlarged-image">
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "90vw",
+                        height: "90vh",
+                        bgcolor: "transparent",
+                        outline: "none",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                    onClick={handleCloseModal}
+                >
+                    <Image
+                        src={selectedImage}
+                        alt="Enlarged fellowship photo"
+                        style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            objectFit: "contain",
+                        }}
+                        width={1920}
+                        height={1080}
+                    />
+                </Box>
+            </Modal>
 
             {/* Activities Section */}
             <Box id="activities" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>

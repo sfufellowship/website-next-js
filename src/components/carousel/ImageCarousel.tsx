@@ -8,11 +8,15 @@ import { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ImageCarouselProps {
-    images: { src: StaticImageData; alt: string }[];
-    autoPlayInterval?: number; // in milliseconds
+    images: {
+        src: string;
+        alt: string;
+    }[];
+    autoPlayInterval?: number;
+    onImageClick?: (imageSrc: string) => void;
 }
 
-export default function ImageCarousel({ images, autoPlayInterval = 5000 }: ImageCarouselProps) {
+export default function ImageCarousel({ images, autoPlayInterval = 5000, onImageClick }: ImageCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const theme = useTheme();
@@ -41,36 +45,30 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000 }: Image
     }, [handleNext, autoPlayInterval, isPaused]);
 
     return (
-        <Box
-            sx={{
-                position: "relative",
-                height: 400,
-                borderRadius: 2,
-                overflow: "hidden",
-                boxShadow: theme.shadows[10],
-            }}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-        >
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ height: "100%" }}
+        <Box sx={{ position: "relative", width: "100%", height: "400px" }}>
+            {images.map((image, index) => (
+                <Box
+                    key={index}
+                    sx={{
+                        position: "absolute",
+                        width: "100%",
+                        height: "100%",
+                        opacity: index === currentIndex ? 1 : 0,
+                        transition: "opacity 0.5s ease-in-out",
+                        cursor: onImageClick ? "pointer" : "default",
+                        pointerEvents: index === currentIndex ? "auto" : "none",
+                    }}
+                    onClick={() => onImageClick?.(image.src)}
                 >
                     <Image
-                        src={images[currentIndex].src}
-                        alt={images[currentIndex].alt}
+                        src={image.src}
+                        alt={image.alt}
                         fill
                         style={{ objectFit: "cover" }}
-                        sizes="(max-width: 600px) 100vw, 600px"
-                        priority={currentIndex === 0}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                </motion.div>
-            </AnimatePresence>
+                </Box>
+            ))}
 
             {images.length > 1 && (
                 <>
