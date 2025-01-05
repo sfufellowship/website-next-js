@@ -21,7 +21,7 @@ import justinPhoto from "@/public/img/face/justin.jpeg";
 import yangPhoto from "@/public/img/face/yangy.jpg";
 import songhePhoto from "@/public/img/face/Songhe.jpeg";
 import jonathanPhoto from "@/public/img/face/Jonathan.jpg";
-import kristenPhoto from "@/public/img/face/pika.png";
+import pikePhoto from "@/public/img/face/pika.png";
 
 export const images = {
     // Main images
@@ -50,7 +50,7 @@ export const images = {
     yangPhoto,
     songhePhoto,
     jonathanPhoto,
-    kristenPhoto,
+    pikePhoto,
 } as const;
 
 // Type for image keys
