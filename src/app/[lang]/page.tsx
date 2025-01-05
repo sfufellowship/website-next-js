@@ -23,6 +23,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { images } from "@/src/images";
 import GoogleCalendar from "@/src/components/GoogleCalendar";
 import GoogleForm from "@/src/components/GoogleForm";
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
 
 const translations = {
     zh: {
@@ -260,289 +262,295 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
     const theme = useTheme();
 
     return (
-        <Box>
-            {/* Hero Section */}
-            <Box
-                sx={{
-                    height: "100vh",
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    overflow: "hidden",
-                }}
-            >
-                <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
-                    <Image src={images.sfuBg} alt="SFU Campus" fill style={{ objectFit: "cover" }} priority sizes="100vw" />
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: alpha(theme.palette.common.black, 0.6),
-                            zIndex: 1,
-                        }}
-                    />
-                </Box>
-                <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
-                    <Box sx={{ textAlign: "center", maxWidth: "800px", mx: "auto", px: 3 }}>
-                        <Typography
-                            variant="h2"
-                            component="h1"
-                            color="white"
-                            gutterBottom
+        <>
+            <Header />
+            <Box component="main">
+                {/* Hero Section */}
+                <Box
+                    id="home"
+                    sx={{
+                        height: "100vh",
+                        position: "relative",
+                        display: "flex",
+                        alignItems: "center",
+                        overflow: "hidden",
+                        pt: 8, // Add padding top to account for fixed header
+                    }}
+                >
+                    <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+                        <Image src={images.sfuBg} alt="SFU Campus" fill style={{ objectFit: "cover" }} priority sizes="100vw" />
+                        <Box
                             sx={{
-                                fontWeight: 700,
-                                mb: 3,
-                                textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                backgroundColor: alpha(theme.palette.common.black, 0.6),
+                                zIndex: 1,
                             }}
-                        >
-                            {translations[lang].welcome.title}
-                        </Typography>
-                        <Typography
-                            variant="h5"
-                            color="white"
-                            sx={{
-                                mb: 4,
-                                textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
-                                lineHeight: 1.6,
-                            }}
-                        >
-                            {translations[lang].welcome.subtitle}
-                        </Typography>
+                        />
                     </Box>
-                </Container>
-            </Box>
-
-            {/* Welcome Section */}
-            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
-                <Container maxWidth="lg">
-                    <Grid container spacing={6} alignItems="center">
-                        <Grid item xs={12} md={5}>
-                            <Typography variant="h4" component="h2" gutterBottom color="primary" sx={{ mb: 4 }}>
+                    <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+                        <Box sx={{ textAlign: "center", maxWidth: "800px", mx: "auto", px: 3 }}>
+                            <Typography
+                                variant="h2"
+                                component="h1"
+                                color="white"
+                                gutterBottom
+                                sx={{
+                                    fontWeight: 700,
+                                    mb: 3,
+                                    textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                                }}
+                            >
                                 {translations[lang].welcome.title}
                             </Typography>
                             <Typography
-                                variant="body1"
-                                paragraph
+                                variant="h5"
+                                color="white"
                                 sx={{
-                                    lineHeight: 1.8,
-                                    color: "text.secondary",
-                                    mb: 3,
+                                    mb: 4,
+                                    textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+                                    lineHeight: 1.6,
                                 }}
                             >
-                                {translations[lang].welcome.description}
+                                {translations[lang].welcome.subtitle}
                             </Typography>
-                        </Grid>
-                        <Grid item xs={12} md={7}>
-                            <Box
-                                sx={{
-                                    position: "relative",
-                                    height: 400,
-                                    borderRadius: 2,
-                                    overflow: "hidden",
-                                    boxShadow: theme.shadows[10],
-                                }}
-                            >
-                                <Image
-                                    src={images.fellowshipGroupPhoto}
-                                    alt="Fellowship Group"
-                                    fill
-                                    style={{ objectFit: "cover" }}
-                                    sizes="(max-width: 600px) 100vw, 600px"
-                                />
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Box>
+                        </Box>
+                    </Container>
+                </Box>
 
-            {/* Activities Section */}
-            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
-                <Container maxWidth="lg">
-                    <Box sx={{ textAlign: "center", mb: 6 }}>
-                        <Typography variant="h4" component="h2" gutterBottom color="primary">
-                            {translations[lang].activities.title}
-                        </Typography>
-                        <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
-                    </Box>
-                    <Grid container spacing={4}>
-                        {translations[lang].activities.items.map((activity, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
-                                <Card
+                {/* Welcome Section */}
+                <Box id="welcome" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
+                    <Container maxWidth="lg">
+                        <Grid container spacing={6} alignItems="center">
+                            <Grid item xs={12} md={5}>
+                                <Typography variant="h4" component="h2" gutterBottom color="primary" sx={{ mb: 4 }}>
+                                    {translations[lang].welcome.title}
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    paragraph
                                     sx={{
-                                        height: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-                                        "&:hover": {
-                                            transform: "translateY(-4px)",
-                                            boxShadow: theme.shadows[8],
-                                        },
+                                        lineHeight: 1.8,
+                                        color: "text.secondary",
+                                        mb: 3,
                                     }}
                                 >
-                                    <Box sx={{ position: "relative", height: 240 }}>
-                                        <Image
-                                            src={activity.image}
-                                            alt={activity.title}
-                                            fill
-                                            style={{ objectFit: "cover" }}
-                                            sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
-                                        />
-                                    </Box>
-                                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                                        <Typography gutterBottom variant="h6" component="h3" sx={{ fontWeight: 600 }}>
-                                            {activity.title}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                                            {activity.description}
-                                        </Typography>
-                                        <Typography
-                                            variant="caption"
-                                            sx={{
-                                                color: "primary.main",
-                                                bgcolor: alpha(theme.palette.primary.main, 0.1),
-                                                py: 0.5,
-                                                px: 1,
-                                                borderRadius: 1,
-                                                display: "inline-block",
-                                            }}
-                                        >
-                                            {activity.type}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
+                                    {translations[lang].welcome.description}
+                                </Typography>
                             </Grid>
-                        ))}
-                    </Grid>
-                </Container>
-            </Box>
-
-            {/* Members Section */}
-            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
-                <Container maxWidth="lg">
-                    <Box sx={{ textAlign: "center", mb: 6 }}>
-                        <Typography variant="h4" component="h2" gutterBottom color="primary">
-                            {translations[lang].members.title}
-                        </Typography>
-                        <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
-                    </Box>
-                    <Grid container spacing={4}>
-                        {translations[lang].members.list.map((member, index) => (
-                            <Grid item xs={12} sm={6} md={3} key={index}>
-                                <Card
+                            <Grid item xs={12} md={7}>
+                                <Box
                                     sx={{
-                                        height: "100%",
-                                        transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-                                        "&:hover": {
-                                            transform: "translateY(-4px)",
-                                            boxShadow: theme.shadows[8],
-                                        },
+                                        position: "relative",
+                                        height: 400,
+                                        borderRadius: 2,
+                                        overflow: "hidden",
+                                        boxShadow: theme.shadows[10],
                                     }}
                                 >
-                                    <Box
+                                    <Image
+                                        src={images.fellowshipGroupPhoto}
+                                        alt="Fellowship Group"
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        sizes="(max-width: 600px) 100vw, 600px"
+                                    />
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Container>
+                </Box>
+
+                {/* Activities Section */}
+                <Box id="activities" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
+                    <Container maxWidth="lg">
+                        <Box sx={{ textAlign: "center", mb: 6 }}>
+                            <Typography variant="h4" component="h2" gutterBottom color="primary">
+                                {translations[lang].activities.title}
+                            </Typography>
+                            <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
+                        </Box>
+                        <Grid container spacing={4}>
+                            {translations[lang].activities.items.map((activity, index) => (
+                                <Grid item xs={12} sm={6} md={4} key={index}>
+                                    <Card
                                         sx={{
-                                            position: "relative",
-                                            height: 280,
-                                            overflow: "hidden",
+                                            height: "100%",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                                            "&:hover": {
+                                                transform: "translateY(-4px)",
+                                                boxShadow: theme.shadows[8],
+                                            },
                                         }}
                                     >
-                                        <Image
-                                            src={member.image}
-                                            alt={member.name}
-                                            fill
-                                            style={{ objectFit: "cover" }}
-                                            sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 25vw"
-                                        />
-                                    </Box>
-                                    <CardContent sx={{ textAlign: "center", p: 3 }}>
-                                        <Typography gutterBottom variant="h6" component="h3" sx={{ fontWeight: 600 }}>
-                                            {member.name}
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle1"
-                                            color="primary"
+                                        <Box sx={{ position: "relative", height: 240 }}>
+                                            <Image
+                                                src={activity.image}
+                                                alt={activity.title}
+                                                fill
+                                                style={{ objectFit: "cover" }}
+                                                sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+                                            />
+                                        </Box>
+                                        <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                                            <Typography gutterBottom variant="h6" component="h3" sx={{ fontWeight: 600 }}>
+                                                {activity.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                                                {activity.description}
+                                            </Typography>
+                                            <Typography
+                                                variant="caption"
+                                                sx={{
+                                                    color: "primary.main",
+                                                    bgcolor: alpha(theme.palette.primary.main, 0.1),
+                                                    py: 0.5,
+                                                    px: 1,
+                                                    borderRadius: 1,
+                                                    display: "inline-block",
+                                                }}
+                                            >
+                                                {activity.type}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Container>
+                </Box>
+
+                {/* Members Section */}
+                <Box id="members" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
+                    <Container maxWidth="lg">
+                        <Box sx={{ textAlign: "center", mb: 6 }}>
+                            <Typography variant="h4" component="h2" gutterBottom color="primary">
+                                {translations[lang].members.title}
+                            </Typography>
+                            <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
+                        </Box>
+                        <Grid container spacing={4}>
+                            {translations[lang].members.list.map((member, index) => (
+                                <Grid item xs={12} sm={6} md={3} key={index}>
+                                    <Card
+                                        sx={{
+                                            height: "100%",
+                                            transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+                                            "&:hover": {
+                                                transform: "translateY(-4px)",
+                                                boxShadow: theme.shadows[8],
+                                            },
+                                        }}
+                                    >
+                                        <Box
                                             sx={{
-                                                mb: 1,
-                                                fontWeight: 500,
+                                                position: "relative",
+                                                height: 280,
+                                                overflow: "hidden",
                                             }}
                                         >
-                                            {member.role}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {member.description}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Container>
-            </Box>
+                                            <Image
+                                                src={member.image}
+                                                alt={member.name}
+                                                fill
+                                                style={{ objectFit: "cover" }}
+                                                sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 25vw"
+                                            />
+                                        </Box>
+                                        <CardContent sx={{ textAlign: "center", p: 3 }}>
+                                            <Typography gutterBottom variant="h6" component="h3" sx={{ fontWeight: 600 }}>
+                                                {member.name}
+                                            </Typography>
+                                            <Typography
+                                                variant="subtitle1"
+                                                color="primary"
+                                                sx={{
+                                                    mb: 1,
+                                                    fontWeight: 500,
+                                                }}
+                                            >
+                                                {member.role}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {member.description}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Container>
+                </Box>
 
-            {/* Events Section */}
-            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
-                <Container maxWidth="lg">
-                    <Box sx={{ textAlign: "center", mb: 6 }}>
-                        <Typography variant="h4" component="h2" gutterBottom color="primary">
-                            {translations[lang].events.title}
-                        </Typography>
-                        <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
-                    </Box>
-                    <GoogleCalendar title={translations[lang].events.calendarTitle} />
-                </Container>
-            </Box>
+                {/* Events Section */}
+                <Box id="events" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "grey.50" }}>
+                    <Container maxWidth="lg">
+                        <Box sx={{ textAlign: "center", mb: 6 }}>
+                            <Typography variant="h4" component="h2" gutterBottom color="primary">
+                                {translations[lang].events.title}
+                            </Typography>
+                            <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
+                        </Box>
+                        <GoogleCalendar title={translations[lang].events.calendarTitle} />
+                    </Container>
+                </Box>
 
-            {/* Contact Section */}
-            <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
-                <Container maxWidth="lg">
-                    <Box sx={{ textAlign: "center", mb: 6 }}>
-                        <Typography variant="h4" component="h2" gutterBottom color="primary">
-                            {translations[lang].contact.title}
-                        </Typography>
-                        <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
-                    </Box>
-                    <Grid container spacing={6}>
-                        <Grid item xs={12} md={5}>
-                            <Box sx={{ textAlign: "center" }}>
-                                <Typography variant="h5" gutterBottom>
-                                    {translations[lang].contact.infoTitle}
-                                </Typography>
-                                <List>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <LocationOnIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={translations[lang].contact.address} />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <EmailIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={translations[lang].contact.email} />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemIcon>
-                                            <PhoneIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={translations[lang].contact.phone} />
-                                    </ListItem>
-                                </List>
-                                <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-                                    {translations[lang].contact.wechatTitle}
-                                </Typography>
-                                <Box sx={{ position: "relative", width: "200px", height: "200px", mx: "auto", mt: 2 }}>
-                                    <Image src={images.wechatQrCode} alt="WeChat QR Code" fill style={{ objectFit: "contain" }} sizes="200px" />
+                {/* Contact Section */}
+                <Box id="contact" component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: "background.paper" }}>
+                    <Container maxWidth="lg">
+                        <Box sx={{ textAlign: "center", mb: 6 }}>
+                            <Typography variant="h4" component="h2" gutterBottom color="primary">
+                                {translations[lang].contact.title}
+                            </Typography>
+                            <Divider sx={{ width: "60px", margin: "auto", my: 3, borderColor: theme.palette.primary.main }} />
+                        </Box>
+                        <Grid container spacing={6}>
+                            <Grid item xs={12} md={5}>
+                                <Box sx={{ textAlign: "center" }}>
+                                    <Typography variant="h5" gutterBottom>
+                                        {translations[lang].contact.infoTitle}
+                                    </Typography>
+                                    <List>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <LocationOnIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={translations[lang].contact.address} />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <EmailIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={translations[lang].contact.email} />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <PhoneIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={translations[lang].contact.phone} />
+                                        </ListItem>
+                                    </List>
+                                    <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+                                        {translations[lang].contact.wechatTitle}
+                                    </Typography>
+                                    <Box sx={{ position: "relative", width: "200px", height: "200px", mx: "auto", mt: 2 }}>
+                                        <Image src={images.wechatQrCode} alt="WeChat QR Code" fill style={{ objectFit: "contain" }} sizes="200px" />
+                                    </Box>
                                 </Box>
-                            </Box>
+                            </Grid>
+                            <Grid item xs={12} md={7}>
+                                <GoogleForm />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={7}>
-                            <GoogleForm />
-                        </Grid>
-                    </Grid>
-                </Container>
+                    </Container>
+                </Box>
             </Box>
-        </Box>
+            <Footer />
+        </>
     );
 }

@@ -18,6 +18,8 @@ export default function GoogleForm() {
             <iframe
                 src="https://docs.google.com/forms/d/e/1FAIpQLSfg7580ockzBI1hk5ls6kCB625toGT63ycT1E2flom_RXZyAw/viewform?embedded=true"
                 title="Contact Form"
+                loading="lazy"
+                aria-label="Contact Form"
             />
         </Box>
     );
