@@ -44,18 +44,18 @@ export default function Layout({ children }: Props) {
     const pathname = usePathname();
     const router = useRouter();
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const currentLang = (pathname.split("/")[1] || "zh") as Lang;
+    const currentLang = (pathname?.split("/")[1] || "zh") as Lang;
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const menuItems = [
-        { text: translations[currentLang].home, href: `/${currentLang}` },
-        { text: translations[currentLang].activities, href: `/${currentLang}#activities` },
-        { text: translations[currentLang].members, href: `/${currentLang}#members` },
-        { text: translations[currentLang].events, href: `/${currentLang}#events` },
-        { text: translations[currentLang].contact, href: `/${currentLang}#contact` },
+        { text: translations[currentLang]?.home || translations.zh.home, href: `/${currentLang}` },
+        { text: translations[currentLang]?.activities || translations.zh.activities, href: `/${currentLang}#activities` },
+        { text: translations[currentLang]?.members || translations.zh.members, href: `/${currentLang}#members` },
+        { text: translations[currentLang]?.events || translations.zh.events, href: `/${currentLang}#events` },
+        { text: translations[currentLang]?.contact || translations.zh.contact, href: `/${currentLang}#contact` },
     ];
 
     const toggleLanguage = () => {

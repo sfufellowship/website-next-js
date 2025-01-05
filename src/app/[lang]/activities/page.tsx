@@ -1,8 +1,8 @@
 import { Box, Container, Typography, Grid, Card, CardContent } from "@mui/material";
 import Image from "next/image";
-import bibleStudyImage from "../../../../public/img/bible-study.jpg";
-import worshipImage from "../../../../public/img/worship.jpg";
-import fellowshipImage from "../../../../public/img/fellowship.jpg";
+import bibleStudyImage from "../../../../public/img_new/bible_study.jpg";
+import basketballImage from "../../../../public/img_new/basketball_match.jpg";
+import fellowshipImage from "../../../../public/img_new/fellowship_group_photo.jpg";
 
 const translations = {
     zh: {
@@ -16,7 +16,7 @@ const translations = {
             {
                 title: "主日崇拜",
                 description: "每周日上午10点，我们一起敬拜神。",
-                image: worshipImage,
+                image: basketballImage,
             },
             {
                 title: "团契聚会",
@@ -36,7 +36,7 @@ const translations = {
             {
                 title: "Sunday Worship",
                 description: "Every Sunday at 10 AM, we worship God together.",
-                image: worshipImage,
+                image: basketballImage,
             },
             {
                 title: "Fellowship Gathering",
@@ -59,7 +59,15 @@ export default function Activities({ params: { lang } }: { params: { lang: "zh" 
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <Card>
                                 <Box sx={{ position: "relative", height: 200 }}>
-                                    <Image src={activity.image} alt={activity.title} fill style={{ objectFit: "cover" }} />
+                                    <Image
+                                        src={activity.image}
+                                        alt={activity.title}
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+                                        priority={index === 0}
+                                        quality={85}
+                                    />
                                 </Box>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">

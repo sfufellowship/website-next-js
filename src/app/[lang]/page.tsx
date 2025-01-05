@@ -5,7 +5,7 @@ import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { images } from "@/images";
+import { images } from "@/src/images";
 
 const translations = {
     zh: {
