@@ -44,6 +44,17 @@ const ImageCarousel = memo(function ImageCarousel({
     });
   };
 
+  // Calculate which images should be loaded (current, prev, next)
+  const shouldLoadImage = useCallback(
+    (index: number) => {
+      const totalImages = images.length;
+      const prev = (currentIndex - 1 + totalImages) % totalImages;
+      const next = (currentIndex + 1) % totalImages;
+      return index === currentIndex || index === prev || index === next;
+    },
+    [currentIndex, images.length],
+  );
+
   // Auto-play effect with cleanup and pause on hover
   useEffect(() => {
     if (!isPaused) {
@@ -71,6 +82,8 @@ const ImageCarousel = memo(function ImageCarousel({
     >
       {images.map((image, index) => {
         const isLoaded = loadedImages.has(index);
+        const shouldLoad = shouldLoadImage(index);
+
         return (
           <Box
             key={index}
@@ -84,52 +97,57 @@ const ImageCarousel = memo(function ImageCarousel({
               transition: 'opacity 0.5s ease-in-out',
               cursor: onImageClick ? 'pointer' : 'default',
               pointerEvents: index === currentIndex ? 'auto' : 'none',
-              display: 'flex',
+              display: shouldLoad ? 'flex' : 'none',
               justifyContent: 'center',
               alignItems: 'center',
               bgcolor: 'background.paper',
             }}
             onClick={() => onImageClick?.(image.src)}
           >
-            {!isLoaded && (
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: 2,
-                }}
-              >
-                <CircularProgress />
-              </Box>
+            {shouldLoad && (
+              <>
+                {!isLoaded && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      zIndex: 2,
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                )}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    opacity: isLoaded ? 1 : 0,
+                    transition: 'opacity 0.3s ease-in-out',
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    style={{
+                      objectFit: 'contain',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    quality={75}
+                    onLoad={() => handleImageLoad(index)}
+                  />
+                </Box>
+              </>
             )}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                opacity: isLoaded ? 1 : 0,
-                transition: 'opacity 0.3s ease-in-out',
-              }}
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                style={{
-                  objectFit: 'contain',
-                  width: '100%',
-                  height: '100%',
-                }}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={index === 0}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                onLoad={() => handleImageLoad(index)}
-              />
-            </Box>
           </Box>
         );
       })}
