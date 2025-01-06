@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import { metadata } from "./metadata";
+
+export { metadata };
 
 interface Props {
-    children: ReactNode;
+    children: React.ReactNode;
     params: { lang: string };
 }
 

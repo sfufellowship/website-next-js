@@ -3,7 +3,6 @@
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography, Button, useTheme, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const translations = {

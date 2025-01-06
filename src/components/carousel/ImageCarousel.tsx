@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Box, IconButton, useTheme } from "@mui/material";
+import { useState, useEffect, useCallback, memo } from "react";
+import { Box, IconButton } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface ImageCarouselProps {
     images: {
@@ -16,10 +15,9 @@ interface ImageCarouselProps {
     onImageClick?: (imageSrc: StaticImageData | string) => void;
 }
 
-export default function ImageCarousel({ images, autoPlayInterval = 5000, onImageClick }: ImageCarouselProps) {
+const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5000, onImageClick }: ImageCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
-    const theme = useTheme();
 
     const handlePrev = useCallback(() => {
         setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
@@ -29,23 +27,24 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
         setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
     }, [images.length]);
 
-    const handleDotClick = (index: number) => {
+    const handleDotClick = useCallback((index: number) => {
         setCurrentIndex(index);
-    };
+    }, []);
 
-    // Auto-play effect
+    // Auto-play effect with cleanup and pause on hover
     useEffect(() => {
         if (!isPaused) {
-            const timer = setInterval(() => {
-                handleNext();
-            }, autoPlayInterval);
-
+            const timer = setInterval(handleNext, autoPlayInterval);
             return () => clearInterval(timer);
         }
     }, [handleNext, autoPlayInterval, isPaused]);
 
     return (
-        <Box sx={{ position: "relative", width: "100%", height: "400px" }}>
+        <Box
+            sx={{ position: "relative", width: "100%", height: "400px" }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+        >
             {images.map((image, index) => (
                 <Box
                     key={index}
@@ -66,6 +65,8 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
                         fill
                         style={{ objectFit: "cover" }}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={index === 0}
+                        loading={index === 0 ? "eager" : "lazy"}
                     />
                 </Box>
             ))}
@@ -84,6 +85,7 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
                                 bgcolor: "rgba(255, 255, 255, 0.9)",
                             },
                         }}
+                        aria-label="Previous image"
                     >
                         <KeyboardArrowLeft />
                     </IconButton>
@@ -99,11 +101,11 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
                                 bgcolor: "rgba(255, 255, 255, 0.9)",
                             },
                         }}
+                        aria-label="Next image"
                     >
                         <KeyboardArrowRight />
                     </IconButton>
 
-                    {/* Dot indicators */}
                     <Box
                         sx={{
                             position: "absolute",
@@ -130,6 +132,8 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
                                         transform: "scale(1.2)",
                                     },
                                 }}
+                                role="button"
+                                aria-label={`Go to image ${index + 1}`}
                             />
                         ))}
                     </Box>
@@ -137,4 +141,6 @@ export default function ImageCarousel({ images, autoPlayInterval = 5000, onImage
             )}
         </Box>
     );
-}
+});
+
+export default ImageCarousel;

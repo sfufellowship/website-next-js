@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Typography, Link as MuiLink, IconButton, useTheme, Divider } from "@mui/material";
+import { Box, Container, Typography, Link as MuiLink, IconButton, useTheme } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { usePathname } from "next/navigation";

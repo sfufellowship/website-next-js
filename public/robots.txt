@@ -1,0 +1,22 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sfufellowship.org/sitemap.xml
+
+# Specific rules for Chinese search engines
+User-agent: Baiduspider
+Allow: /
+Allow: /zh/
+Disallow: /en/
+
+User-agent: Sogou web spider
+Allow: /
+Allow: /zh/
+Disallow: /en/
+
+User-agent: 360Spider
+Allow: /
+Allow: /zh/
+Disallow: /en/ 

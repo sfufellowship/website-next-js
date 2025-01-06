@@ -4,11 +4,6 @@ import type { NextRequest } from "next/server";
 const locales = ["en", "zh"];
 const defaultLocale = "zh";
 
-function getLocale(_request: NextRequest): string {
-    // Always return Chinese as default
-    return defaultLocale;
-}
-
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     const pathnameIsMissingLocale = locales.every((locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`);
