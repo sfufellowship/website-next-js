@@ -1,8 +1,6 @@
 import { Box, Container, Typography, Grid, Card, CardContent } from "@mui/material";
 import Image from "next/image";
-import bibleStudyImage from "../../../../public/img_new/bible_study.jpg";
-import basketballImage from "../../../../public/img_new/basketball_match.jpg";
-import fellowshipImage from "../../../../public/img_new/fellowship_group_photo.jpg";
+import { images } from "@/src/constants/images";
 
 const translations = {
     zh: {
@@ -11,17 +9,17 @@ const translations = {
             {
                 title: "查经班",
                 description: "每周五晚上7点，我们一起学习圣经，分享生活。",
-                image: bibleStudyImage,
+                image: images.bibleStudy,
             },
             {
                 title: "主日崇拜",
                 description: "每周日上午10点，我们一起敬拜神。",
-                image: basketballImage,
+                image: images.imgSquare2,
             },
             {
                 title: "团契聚会",
                 description: "每月一次的大型团契聚会，包括敬拜、分享和美食。",
-                image: fellowshipImage,
+                image: images.fellowshipGroupPhoto,
             },
         ],
     },
@@ -31,17 +29,17 @@ const translations = {
             {
                 title: "Bible Study",
                 description: "Every Friday at 7 PM, we study the Bible together and share our lives.",
-                image: bibleStudyImage,
+                image: images.bibleStudy,
             },
             {
                 title: "Sunday Worship",
                 description: "Every Sunday at 10 AM, we worship God together.",
-                image: basketballImage,
+                image: images.imgSquare2,
             },
             {
                 title: "Fellowship Gathering",
                 description: "Monthly fellowship gathering including worship, sharing, and food.",
-                image: fellowshipImage,
+                image: images.fellowshipGroupPhoto,
             },
         ],
     },

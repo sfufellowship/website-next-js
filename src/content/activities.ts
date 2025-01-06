@@ -70,12 +70,6 @@ export const activities = {
                 type: "文化活动",
                 image: images.imgSquare5,
             },
-            {
-                title: "同工培训",
-                description: "为团契同工提供服侍和领导力培训",
-                type: "培训活动",
-                image: images.bibleStudy,
-            },
         ],
     },
     en: {
@@ -146,12 +140,6 @@ export const activities = {
                 description: "Watching and discussing meaningful Christian movies",
                 type: "Cultural Activity",
                 image: images.imgSquare5,
-            },
-            {
-                title: "Leadership Training",
-                description: "Training sessions for fellowship staff on service and leadership",
-                type: "Training",
-                image: images.bibleStudy,
             },
         ],
     },
