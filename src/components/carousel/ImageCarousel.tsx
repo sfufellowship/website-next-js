@@ -57,9 +57,14 @@ const ImageCarousel = memo(function ImageCarousel({
       sx={{
         position: 'relative',
         width: '100%',
-        height: '400px',
+        height: 'auto',
         bgcolor: 'background.paper',
         overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          display: 'block',
+          paddingTop: '56.25%', // 16:9 aspect ratio (9/16 * 100)
+        },
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -71,8 +76,10 @@ const ImageCarousel = memo(function ImageCarousel({
             key={index}
             sx={{
               position: 'absolute',
-              width: '100%',
-              height: '100%',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               opacity: index === currentIndex ? 1 : 0,
               transition: 'opacity 0.5s ease-in-out',
               cursor: onImageClick ? 'pointer' : 'default',
@@ -99,9 +106,11 @@ const ImageCarousel = memo(function ImageCarousel({
             )}
             <Box
               sx={{
-                position: 'relative',
-                width: '100%',
-                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
                 opacity: isLoaded ? 1 : 0,
                 transition: 'opacity 0.3s ease-in-out',
               }}
@@ -111,7 +120,7 @@ const ImageCarousel = memo(function ImageCarousel({
                 alt={image.alt}
                 fill
                 style={{
-                  objectFit: 'cover',
+                  objectFit: 'contain',
                   width: '100%',
                   height: '100%',
                 }}

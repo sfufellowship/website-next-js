@@ -11,7 +11,7 @@ import { introduction } from '@/src/content/introduction';
 import { StaticImageData } from 'next/image';
 import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import LoadingSpinner from '@/src/components/LoadingSpinner';
-import WelcomeSection from '@/src/components/sections/WelcomeSection';
+import PhotoGallerySection from '@/src/components/sections/PhotoGallerySection';
 import MembersSection from '@/src/components/sections/MembersSection';
 import ContactSection from '@/src/components/sections/ContactSection';
 import ActivitiesSection from '@/src/components/sections/ActivitiesSection';
@@ -39,12 +39,13 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
         <Box
           id="home"
           sx={{
-            height: '100vh',
+            height: '70vh',
+            minHeight: '500px',
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
             overflow: 'hidden',
-            pt: 8,
+            pt: 7,
           }}
         >
           <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
@@ -80,6 +81,7 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                   fontWeight: 700,
                   mb: 3,
                   textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                  fontSize: { xs: '2.5rem', md: '3.75rem' },
                 }}
               >
                 {introduction[lang].title}
@@ -91,16 +93,30 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                   mb: 4,
                   textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                   lineHeight: 1.6,
+                  fontSize: { xs: '1.25rem', md: '1.5rem' },
                 }}
               >
                 {introduction[lang].subtitle}
+              </Typography>
+              <Typography
+                color="white"
+                sx={{
+                  mb: 2,
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+                  lineHeight: 1.8,
+                  fontSize: { xs: '1rem', md: '1.1rem' },
+                  maxWidth: '700px',
+                  mx: 'auto',
+                }}
+              >
+                {introduction[lang].description}
               </Typography>
             </Box>
           </Container>
         </Box>
 
-        {/* Welcome Section */}
-        <WelcomeSection lang={lang} onImageClick={handleImageClick} />
+        {/* Photo Gallery Section */}
+        <PhotoGallerySection lang={lang} onImageClick={handleImageClick} />
 
         {/* Activities Section */}
         <ActivitiesSection lang={lang} onImageClick={handleImageClick} />
