@@ -31,7 +31,7 @@ const commonKeywords = [
 export const metadata: Metadata = {
     metadataBase: new URL("https://sfufellowship.org"),
     title: {
-        default: "SFU团契 | Simon Fraser University基督教团契",
+        default: "SFU团契 | 加拿大西门菲莎大学 (Simon Fraser University) 校园基督团契",
         template: "%s | SFU团契",
     },
     description: "SFU团契是加拿大西门菲莎大学(Simon Fraser University)的基督教大学生团契，我们欢迎所有SFU的学生参加我们的聚会活动来更多的认识神。",
