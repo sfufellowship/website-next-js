@@ -17,13 +17,14 @@ import { introduction } from "@/src/content/introduction";
 import { activities } from "@/src/content/activities";
 import { members } from "@/src/content/members";
 import ImageCarousel from "@/src/components/carousel/ImageCarousel";
+import { StaticImageData } from "next/image";
 
 export default function Home({ params: { lang } }: { params: { lang: "zh" | "en" } }) {
     const theme = useTheme();
     const [openModal, setOpenModal] = useState(false);
-    const [selectedImage, setSelectedImage] = useState<string>("");
+    const [selectedImage, setSelectedImage] = useState<StaticImageData | string>("");
 
-    const handleImageClick = (imageSrc: string) => {
+    const handleImageClick = (imageSrc: StaticImageData | string) => {
         setSelectedImage(imageSrc);
         setOpenModal(true);
     };

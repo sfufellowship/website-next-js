@@ -9,11 +9,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface ImageCarouselProps {
     images: {
-        src: string;
+        src: StaticImageData | string;
         alt: string;
     }[];
     autoPlayInterval?: number;
-    onImageClick?: (imageSrc: string) => void;
+    onImageClick?: (imageSrc: StaticImageData | string) => void;
 }
 
 export default function ImageCarousel({ images, autoPlayInterval = 5000, onImageClick }: ImageCarouselProps) {
