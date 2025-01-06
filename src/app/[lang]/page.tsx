@@ -1,7 +1,20 @@
 "use client";
 
 import { Suspense } from "react";
-import { Box, Container, Typography, Grid, useTheme, alpha, List, ListItem, ListItemIcon, ListItemText, Modal } from "@mui/material";
+import {
+    Box,
+    Container,
+    Typography,
+    Grid,
+    useTheme,
+    alpha,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Modal,
+    CircularProgress,
+} from "@mui/material";
 import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -29,19 +42,29 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
     const theme = useTheme();
     const [openModal, setOpenModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState<StaticImageData | string>("");
+    const [modalImageLoaded, setModalImageLoaded] = useState(false);
 
     const handleImageClick = (imageSrc: StaticImageData | string) => {
         setSelectedImage(imageSrc);
+        setModalImageLoaded(false);
         setOpenModal(true);
     };
 
     const handleCloseModal = () => {
         setOpenModal(false);
+        setModalImageLoaded(false);
     };
 
     // Create activity cards
     const activityCards = activities[lang].items.map((activity, index) => (
-        <ActivityCard key={index} title={activity.title} description={activity.description} type={activity.type} image={activity.image} />
+        <ActivityCard
+            key={index}
+            title={activity.title}
+            description={activity.description}
+            type={activity.type}
+            image={activity.image}
+            onImageClick={handleImageClick}
+        />
     ));
 
     // Create member cards
@@ -156,7 +179,7 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                         <SectionHeader title={activities[lang].title} />
                         <ErrorBoundary>
                             <Suspense fallback={<LoadingSpinner />}>
-                                <CardCarousel items={activityCards} itemsPerPage={8} />
+                                <CardCarousel items={activityCards} itemsPerPage={4} autoPlayInterval={10000} />
                             </Suspense>
                         </ErrorBoundary>
                     </Container>
@@ -168,7 +191,7 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                         <SectionHeader title={members[lang].title} />
                         <ErrorBoundary>
                             <Suspense fallback={<LoadingSpinner />}>
-                                <CardCarousel items={memberCards} itemsPerPage={8} />
+                                <CardCarousel items={memberCards} itemsPerPage={6} autoPlayInterval={10000} />
                             </Suspense>
                         </ErrorBoundary>
                     </Container>
@@ -203,18 +226,42 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                         }}
                         onClick={handleCloseModal}
                     >
-                        <Image
-                            src={selectedImage}
-                            alt="Enlarged fellowship photo"
-                            style={{
-                                maxWidth: "100%",
-                                maxHeight: "100%",
-                                objectFit: "contain",
+                        {!modalImageLoaded && (
+                            <CircularProgress
+                                sx={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    zIndex: 1,
+                                }}
+                            />
+                        )}
+                        <Box
+                            sx={{
+                                position: "relative",
+                                width: "100%",
+                                height: "100%",
+                                opacity: modalImageLoaded ? 1 : 0,
+                                transition: "opacity 0.3s ease-in-out",
                             }}
-                            width={1920}
-                            height={1080}
-                            priority
-                        />
+                        >
+                            <Image
+                                src={selectedImage}
+                                alt="Enlarged fellowship photo"
+                                style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    maxWidth: "100%",
+                                    maxHeight: "100%",
+                                    objectFit: "contain",
+                                }}
+                                width={1920}
+                                height={1080}
+                                priority
+                                onLoad={() => setModalImageLoaded(true)}
+                            />
+                        </Box>
                     </Box>
                 </Modal>
 

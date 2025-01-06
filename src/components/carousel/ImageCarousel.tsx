@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, memo } from "react";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, CircularProgress } from "@mui/material";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
@@ -18,6 +18,7 @@ interface ImageCarouselProps {
 const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5000, onImageClick }: ImageCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
     const handlePrev = useCallback(() => {
         setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
@@ -31,6 +32,14 @@ const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5
         setCurrentIndex(index);
     }, []);
 
+    const handleImageLoad = (index: number) => {
+        setLoadedImages((prev) => {
+            const newSet = new Set(prev);
+            newSet.add(index);
+            return newSet;
+        });
+    };
+
     // Auto-play effect with cleanup and pause on hover
     useEffect(() => {
         if (!isPaused) {
@@ -41,35 +50,76 @@ const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5
 
     return (
         <Box
-            sx={{ position: "relative", width: "100%", height: "400px" }}
+            sx={{
+                position: "relative",
+                width: "100%",
+                height: "400px",
+                bgcolor: "background.paper",
+                overflow: "hidden",
+            }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
-            {images.map((image, index) => (
-                <Box
-                    key={index}
-                    sx={{
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        opacity: index === currentIndex ? 1 : 0,
-                        transition: "opacity 0.5s ease-in-out",
-                        cursor: onImageClick ? "pointer" : "default",
-                        pointerEvents: index === currentIndex ? "auto" : "none",
-                    }}
-                    onClick={() => onImageClick?.(image.src)}
-                >
-                    <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority={index === 0}
-                        loading={index === 0 ? "eager" : "lazy"}
-                    />
-                </Box>
-            ))}
+            {images.map((image, index) => {
+                const isLoaded = loadedImages.has(index);
+                return (
+                    <Box
+                        key={index}
+                        sx={{
+                            position: "absolute",
+                            width: "100%",
+                            height: "100%",
+                            opacity: index === currentIndex ? 1 : 0,
+                            transition: "opacity 0.5s ease-in-out",
+                            cursor: onImageClick ? "pointer" : "default",
+                            pointerEvents: index === currentIndex ? "auto" : "none",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bgcolor: "background.paper",
+                        }}
+                        onClick={() => onImageClick?.(image.src)}
+                    >
+                        {!isLoaded && (
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    zIndex: 2,
+                                }}
+                            >
+                                <CircularProgress />
+                            </Box>
+                        )}
+                        <Box
+                            sx={{
+                                position: "relative",
+                                width: "100%",
+                                height: "100%",
+                                opacity: isLoaded ? 1 : 0,
+                                transition: "opacity 0.3s ease-in-out",
+                            }}
+                        >
+                            <Image
+                                src={image.src}
+                                alt={image.alt}
+                                fill
+                                style={{
+                                    objectFit: "cover",
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority={index === 0}
+                                loading={index === 0 ? "eager" : "lazy"}
+                                onLoad={() => handleImageLoad(index)}
+                            />
+                        </Box>
+                    </Box>
+                );
+            })}
 
             {images.length > 1 && (
                 <>
@@ -84,6 +134,7 @@ const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5
                             "&:hover": {
                                 bgcolor: "rgba(255, 255, 255, 0.9)",
                             },
+                            zIndex: 3,
                         }}
                         aria-label="Previous image"
                     >
@@ -100,6 +151,7 @@ const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5
                             "&:hover": {
                                 bgcolor: "rgba(255, 255, 255, 0.9)",
                             },
+                            zIndex: 3,
                         }}
                         aria-label="Next image"
                     >
@@ -114,7 +166,7 @@ const ImageCarousel = memo(function ImageCarousel({ images, autoPlayInterval = 5
                             transform: "translateX(-50%)",
                             display: "flex",
                             gap: 1,
-                            zIndex: 1,
+                            zIndex: 3,
                         }}
                     >
                         {images.map((_, index) => (
