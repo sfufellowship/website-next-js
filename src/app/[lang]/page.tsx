@@ -6,6 +6,8 @@ import Image from "next/image";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import { useState } from "react";
 import { images } from "@/src/constants/images";
 import GoogleCalendar from "@/src/components/forms/GoogleCalendar";
@@ -17,6 +19,7 @@ import SectionHeader from "@/src/components/common/SectionHeader";
 import { introduction } from "@/src/content/introduction";
 import { activities } from "@/src/content/activities";
 import { members } from "@/src/content/members";
+import { contact } from "@/src/content/contact";
 import ImageCarousel from "@/src/components/carousel/ImageCarousel";
 import { StaticImageData } from "next/image";
 import { ErrorBoundary } from "@/src/components/ErrorBoundary";
@@ -222,30 +225,58 @@ export default function Home({ params: { lang } }: { params: { lang: "zh" | "en"
                             <Grid item xs={12} md={5}>
                                 <Box sx={{ mb: { xs: 4, md: 0 } }}>
                                     <Typography variant="h4" component="h2" gutterBottom color="primary">
-                                        {lang === "zh" ? "联系我们" : "Contact Us"}
+                                        {contact[lang].title}
                                     </Typography>
                                     <List>
                                         <ListItem>
                                             <ListItemIcon>
                                                 <EmailIcon color="primary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="sfuchristianfellowship@gmail.com" />
+                                            <ListItemText>
+                                                <a href={contact[lang].email.href}>{contact[lang].email.text}</a>
+                                            </ListItemText>
                                         </ListItem>
                                         <ListItem>
                                             <ListItemIcon>
                                                 <LocationOnIcon color="primary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="8888 University Dr, Burnaby, BC V5A 1S6" />
+                                            <ListItemText>
+                                                <a href={contact[lang].address.href} target="_blank" rel="noopener noreferrer">
+                                                    {contact[lang].address.text}
+                                                </a>
+                                            </ListItemText>
                                         </ListItem>
                                         <ListItem>
                                             <ListItemIcon>
                                                 <PhoneIcon color="primary" />
                                             </ListItemIcon>
-                                            <ListItemText primary="+1 (778) 888-8888" />
+                                            <ListItemText>
+                                                <a href={contact[lang].phone.href}>{contact[lang].phone.text}</a>
+                                            </ListItemText>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <InstagramIcon color="primary" />
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                <a href={contact[lang].social.instagram.href} target="_blank" rel="noopener noreferrer">
+                                                    {contact[lang].social.instagram.text}
+                                                </a>
+                                            </ListItemText>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FacebookIcon color="primary" />
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                <a href={contact[lang].social.facebook.href} target="_blank" rel="noopener noreferrer">
+                                                    {contact[lang].social.facebook.text}
+                                                </a>
+                                            </ListItemText>
                                         </ListItem>
                                     </List>
                                     <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-                                        微信公众号二维码
+                                        {contact[lang].wechatQrTitle}
                                     </Typography>
                                     <Box sx={{ position: "relative", width: "200px", height: "200px", mx: "auto", mt: 2 }}>
                                         <Image src={images.wechatQrCode} alt="WeChat QR Code" fill style={{ objectFit: "contain" }} sizes="200px" />
