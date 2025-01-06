@@ -16,10 +16,6 @@ import MembersSection from "@/src/components/sections/MembersSection";
 import ContactSection from "@/src/components/sections/ContactSection";
 import ActivitiesSection from "@/src/components/sections/ActivitiesSection";
 
-export function generateStaticParams() {
-    return [{ lang: "en" }, { lang: "zh" }];
-}
-
 export default function Home({ params: { lang } }: { params: { lang: "zh" | "en" } }) {
     const [openModal, setOpenModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState<StaticImageData | string>("");
