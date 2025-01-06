@@ -8,7 +8,6 @@ import { images } from "@/src/constants/images";
 import GoogleCalendar from "@/src/components/forms/GoogleCalendar";
 import SectionHeader from "@/src/components/common/SectionHeader";
 import { introduction } from "@/src/content/introduction";
-import { activities } from "@/src/content/activities";
 import { StaticImageData } from "next/image";
 import { ErrorBoundary } from "@/src/components/ErrorBoundary";
 import LoadingSpinner from "@/src/components/LoadingSpinner";
