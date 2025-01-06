@@ -2,6 +2,32 @@
 
 这是一个使用 Next.js 构建并部署在 GitHub Pages 上的 SFU 团契双语(中文/英文)网站。
 
+## 技术栈
+
+-   **框架**:
+
+    -   [Next.js 14](https://nextjs.org/) - React 框架，用于服务端渲染和静态网站生成
+    -   [React 18](https://reactjs.org/) - 用户界面库
+
+-   **UI 组件**:
+
+    -   [Material UI (MUI) v5](https://mui.com/) - React UI 组件库
+    -   [Framer Motion](https://www.framer.com/motion/) - 动画库
+
+-   **样式**:
+
+    -   [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
+    -   [Emotion](https://emotion.sh/) - CSS-in-JS 解决方案
+
+-   **国际化**:
+
+    -   [next-intl](https://next-intl-docs.vercel.app/) - Next.js 的国际化方案
+
+-   **开发工具**:
+    -   TypeScript - 类型安全的 JavaScript 超集
+    -   ESLint - 代码质量检查
+    -   Prettier - 代码格式化
+
 ## 基础操作教程
 
 ### 1. 获取代码
