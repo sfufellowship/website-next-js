@@ -10,8 +10,8 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "SFU Fellowship",
-    description: "SFU Fellowship Website",
+    title: "SFU团契",
+    description: "SFU团契面向加拿大西门菲莎大学(Simon Fraser University) (SFU)校园内來自中国的学生学者, 分享信仰，传播福音",
 };
 
 export default function RootLayout({
