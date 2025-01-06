@@ -24,6 +24,10 @@ const translations = {
     },
 } as const;
 
+export function generateStaticParams() {
+    return [{ lang: "en" }, { lang: "zh" }];
+}
+
 export default function Contact({ params: { lang } }: { params: { lang: "zh" | "en" } }) {
     return (
         <Box sx={{ pt: 8 }}>
