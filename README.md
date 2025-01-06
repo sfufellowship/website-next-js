@@ -48,6 +48,12 @@ cd sfu-fellowship-website-react
 npm install
 ```
 
+6. 准备Git钩子（用于代码质量检查）：
+
+```bash
+npm run prepare
+```
+
 ### 2. 本地测试
 
 1. 启动开发服务器：
