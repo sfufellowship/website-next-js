@@ -20,7 +20,7 @@ const commonKeywords = [
     "温哥华基督徒",
     "温哥华留学生团契",
     "温哥华大学生团契",
-    "温哥华学生团契"
+    "温哥华学生团契",
     "SFU",
     "Fellowship",
     "Christian",
