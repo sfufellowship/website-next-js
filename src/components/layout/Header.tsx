@@ -14,7 +14,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 const translations = {
@@ -38,13 +38,21 @@ const translations = {
 
 export default function Header() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobileQuery = useMediaQuery(theme.breakpoints.down('md'));
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const pathname = usePathname();
   const router = useRouter();
 
   const currentLang = pathname.includes('/en') ? 'en' : 'zh';
   const sections = ['home', 'activities', 'members', 'events', 'contact'];
+
+  // Update isMobile state after hydration
+  useEffect(() => {
+    setIsClient(true);
+    setIsMobile(isMobileQuery);
+  }, [isMobileQuery]);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,49 +88,61 @@ export default function Header() {
             {translations[currentLang].title}
           </Typography>
 
-          {isMobile ? (
-            <>
-              <IconButton
-                size="large"
-                aria-label="menu"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {sections.map((section) => (
-                  <MenuItem key={section} onClick={() => scrollToSection(section)}>
-                    {translations[currentLang][section as keyof (typeof translations)['zh']]}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
-          ) : (
-            <Box sx={{ flexGrow: 1, display: 'flex', gap: 2 }}>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexGrow: 1,
+              gap: 2,
+              ...(isClient && !isMobile && { display: 'flex' }),
+              ...(isClient && isMobile && { display: 'none' }),
+            }}
+          >
+            {sections.map((section) => (
+              <Button key={section} onClick={() => scrollToSection(section)} sx={{ color: 'text.primary' }}>
+                {translations[currentLang][section as keyof (typeof translations)['zh']]}
+              </Button>
+            ))}
+          </Box>
+
+          <Box
+            sx={{
+              display: { xs: 'block', md: 'none' },
+              ...(isClient && !isMobile && { display: 'none' }),
+              ...(isClient && isMobile && { display: 'block' }),
+            }}
+          >
+            <IconButton
+              size="large"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
               {sections.map((section) => (
-                <Button key={section} onClick={() => scrollToSection(section)} sx={{ color: 'text.primary' }}>
+                <MenuItem key={section} onClick={() => scrollToSection(section)}>
                   {translations[currentLang][section as keyof (typeof translations)['zh']]}
-                </Button>
+                </MenuItem>
               ))}
-            </Box>
-          )}
+            </Menu>
+          </Box>
 
           <Button
             onClick={handleLanguageSwitch}
