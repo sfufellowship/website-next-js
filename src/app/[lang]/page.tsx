@@ -164,20 +164,20 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                 height: '100%',
                 opacity: modalImageLoaded ? 1 : 0,
                 transition: 'opacity 0.3s ease-in-out',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <Image
                 src={selectedImage}
                 alt="Enlarged fellowship photo"
                 style={{
-                  width: '100%',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
                   objectFit: 'contain',
+                  margin: 'auto',
                 }}
-                width={1920}
-                height={1080}
+                fill
+                sizes="100vw"
                 priority
                 onLoad={() => setModalImageLoaded(true)}
               />
