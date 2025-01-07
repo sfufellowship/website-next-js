@@ -50,10 +50,41 @@ const ImageCarousel = memo(function ImageCarousel({
       const totalImages = images.length;
       const prev = (currentIndex - 1 + totalImages) % totalImages;
       const next = (currentIndex + 1) % totalImages;
-      return index === currentIndex || index === prev || index === next;
+      // Also preload the next set of images for smoother transitions
+      const nextNext = (currentIndex + 2) % totalImages;
+      const prevPrev = (currentIndex - 2 + totalImages) % totalImages;
+      return index === currentIndex || index === prev || index === next || index === nextNext || index === prevPrev;
     },
     [currentIndex, images.length],
   );
+
+  // Add touch support for mobile
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      handleNext();
+    } else if (isRightSwipe) {
+      handlePrev();
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
 
   // Auto-play effect with cleanup and pause on hover
   useEffect(() => {
@@ -79,6 +110,9 @@ const ImageCarousel = memo(function ImageCarousel({
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {images.map((image, index) => {
         const isLoaded = loadedImages.has(index);
@@ -158,7 +192,7 @@ const ImageCarousel = memo(function ImageCarousel({
             onClick={handlePrev}
             sx={{
               position: 'absolute',
-              left: 16,
+              left: { xs: 8, md: 16 },
               top: '50%',
               transform: 'translateY(-50%)',
               bgcolor: 'rgba(255, 255, 255, 0.8)',
@@ -166,6 +200,8 @@ const ImageCarousel = memo(function ImageCarousel({
                 bgcolor: 'rgba(255, 255, 255, 0.9)',
               },
               zIndex: 3,
+              width: { xs: 32, md: 40 },
+              height: { xs: 32, md: 40 },
             }}
             aria-label="Previous image"
           >
@@ -175,7 +211,7 @@ const ImageCarousel = memo(function ImageCarousel({
             onClick={handleNext}
             sx={{
               position: 'absolute',
-              right: 16,
+              right: { xs: 8, md: 16 },
               top: '50%',
               transform: 'translateY(-50%)',
               bgcolor: 'rgba(255, 255, 255, 0.8)',
@@ -183,6 +219,8 @@ const ImageCarousel = memo(function ImageCarousel({
                 bgcolor: 'rgba(255, 255, 255, 0.9)',
               },
               zIndex: 3,
+              width: { xs: 32, md: 40 },
+              height: { xs: 32, md: 40 },
             }}
             aria-label="Next image"
           >

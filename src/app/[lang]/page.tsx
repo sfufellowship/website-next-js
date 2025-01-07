@@ -87,18 +87,6 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                 {introduction[lang].title}
               </Typography>
               <Typography
-                variant="h5"
-                color="white"
-                sx={{
-                  mb: 4,
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-                  lineHeight: 1.6,
-                  fontSize: { xs: '1.25rem', md: '1.5rem' },
-                }}
-              >
-                {introduction[lang].subtitle}
-              </Typography>
-              <Typography
                 color="white"
                 sx={{
                   mb: 2,
@@ -145,6 +133,11 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
           onClose={handleCloseModal}
           aria-labelledby="image-modal"
           aria-describedby="enlarged-image"
+          sx={{
+            '& .MuiBackdrop-root': {
+              backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            },
+          }}
         >
           <Box
             sx={{
@@ -152,13 +145,14 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '90vw',
-              height: '90vh',
+              width: '100%',
+              height: '100%',
               bgcolor: 'transparent',
               outline: 'none',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              p: { xs: 1, sm: 2, md: 4 },
             }}
             onClick={handleCloseModal}
           >
@@ -170,6 +164,7 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
                   zIndex: 1,
+                  color: 'white',
                 }}
               />
             )}
@@ -191,11 +186,14 @@ export default function Home({ params: { lang } }: { params: { lang: 'zh' | 'en'
                 style={{
                   objectFit: 'contain',
                   margin: 'auto',
+                  maxHeight: '100%',
+                  maxWidth: '100%',
                 }}
                 fill
-                sizes="100vw"
+                sizes="(max-width: 768px) 100vw, 90vw"
                 priority
                 onLoad={() => setModalImageLoaded(true)}
+                quality={90}
               />
             </Box>
           </Box>

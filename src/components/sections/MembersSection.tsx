@@ -31,7 +31,7 @@ export default function MembersSection({ lang }: MembersSectionProps) {
         <SectionHeader title={members[lang].title} />
         <ErrorBoundary>
           <Suspense fallback={<LoadingSpinner />}>
-            <CardCarousel items={memberCards} itemsPerPage={6} autoPlayInterval={10000} />
+            <CardCarousel items={memberCards} itemsPerPage={6} />
           </Suspense>
         </ErrorBoundary>
       </Container>

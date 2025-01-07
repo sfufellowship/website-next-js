@@ -34,7 +34,7 @@ export default function ActivitiesSection({ lang, onImageClick }: ActivitiesSect
         <SectionHeader title={activities[lang].title} />
         <ErrorBoundary>
           <Suspense fallback={<LoadingSpinner />}>
-            <CardCarousel items={activityCards} itemsPerPage={4} autoPlayInterval={10000} />
+            <CardCarousel items={activityCards} itemsPerPage={4} />
           </Suspense>
         </ErrorBoundary>
       </Container>

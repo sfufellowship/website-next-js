@@ -11,7 +11,7 @@ interface CardCarouselProps {
   autoPlayInterval?: number;
 }
 
-export default function CardCarousel({ items, itemsPerPage = 4, autoPlayInterval = 5000 }: CardCarouselProps) {
+export default function CardCarousel({ items, itemsPerPage = 4, autoPlayInterval }: CardCarouselProps) {
   const theme = useTheme();
   const [currentPage, setCurrentPage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -36,7 +36,7 @@ export default function CardCarousel({ items, itemsPerPage = 4, autoPlayInterval
 
   // Auto-play effect with cleanup and pause on hover
   useEffect(() => {
-    if (!isPaused && totalPages > 1) {
+    if (autoPlayInterval && !isPaused && totalPages > 1) {
       const timer = setInterval(handleNext, autoPlayInterval);
       return () => clearInterval(timer);
     }
