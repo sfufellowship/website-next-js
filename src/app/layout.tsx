@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import Providers from '@/src/components/common/Providers';
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={openSans.className}>
         <Providers>
           <Layout>{children}</Layout>
+          <Analytics />
         </Providers>
       </body>
     </html>
