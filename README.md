@@ -4,29 +4,29 @@
 
 ## 技术栈
 
--   **框架**:
+- **框架**:
 
-    -   [Next.js 14](https://nextjs.org/) - React 框架，用于服务端渲染和静态网站生成
-    -   [React 18](https://reactjs.org/) - 用户界面库
+  - [Next.js 14](https://nextjs.org/) - React 框架，用于服务端渲染和静态网站生成
+  - [React 18](https://reactjs.org/) - 用户界面库
 
--   **UI 组件**:
+- **UI 组件**:
 
-    -   [Material UI (MUI) v5](https://mui.com/) - React UI 组件库
-    -   [Framer Motion](https://www.framer.com/motion/) - 动画库
+  - [Material UI (MUI) v5](https://mui.com/) - React UI 组件库
+  - [Framer Motion](https://www.framer.com/motion/) - 动画库
 
--   **样式**:
+- **样式**:
 
-    -   [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
-    -   [Emotion](https://emotion.sh/) - CSS-in-JS 解决方案
+  - [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
+  - [Emotion](https://emotion.sh/) - CSS-in-JS 解决方案
 
--   **国际化**:
+- **国际化**:
 
-    -   [next-intl](https://next-intl-docs.vercel.app/) - Next.js 的国际化方案
+  - [next-intl](https://next-intl-docs.vercel.app/) - Next.js 的国际化方案
 
--   **开发工具**:
-    -   TypeScript - 类型安全的 JavaScript 超集
-    -   ESLint - 代码质量检查
-    -   Prettier - 代码格式化
+- **开发工具**:
+  - TypeScript - 类型安全的 JavaScript 超集
+  - ESLint - 代码质量检查
+  - Prettier - 代码格式化
 
 ## 基础操作教程
 
@@ -98,12 +98,12 @@ git push origin update-活动内容-2024
 ```
 
 6. 在 GitHub 网站上创建 Pull Request：
-    - 访问 [仓库页面](https://github.com/sfufellowship/sfu-fellowship-website-react)
-    - 点击 "Pull requests" 标签
-    - 点击 "New pull request"
-    - 选择你的分支
-    - 填写更改说明
-    - 点击 "Create pull request"
+   - 访问 [仓库页面](https://github.com/sfufellowship/sfu-fellowship-website-react)
+   - 点击 "Pull requests" 标签
+   - 点击 "New pull request"
+   - 选择你的分支
+   - 填写更改说明
+   - 点击 "Create pull request"
 
 等待管理员审核并合并你的更改。合并后，网站将自动更新。
 
@@ -164,8 +164,8 @@ git push origin update-活动内容-2024
 
 ```typescript
 export const images = {
-    // ... 其他图片
-    fellowship2024: "/images/activities/fellowship-2024.jpg",
+  // ... 其他图片
+  fellowship2024: '/images/activities/fellowship-2024.jpg',
 };
 ```
 
@@ -182,25 +182,33 @@ export const images = {
 
 ### 重要注意事项
 
--   始终为新内容提供中英文双语翻译
--   将图片文件保存在 `public/images` 目录中
--   将更改推送到 GitHub 后，网站将在几分钟内自动更新
--   在添加图片之前，确保图片文件已经过网页优化（压缩）
+- 始终为新内容提供中英文双语翻译
+- 将图片文件保存在 `public/images` 目录中
+- 将更改推送到 GitHub 后，网站将在几分钟内自动更新
+- 在添加图片之前，确保图片文件已经过网页优化（压缩）
 
 ## 技术细节
 
 ### 部署
 
-网站使用 GitHub Actions 自动部署到 GitHub Pages。工作流程如下：
+网站使用 Vercel 自动部署。工作流程如下：
 
-1. 每次更改推送到 `main` 分支时，部署过程会自动启动
-2. GitHub Action 工作流程：
-    - 设置 Node.js 环境
-    - 安装依赖
-    - 构建 Next.js 应用
-    - 将构建文件部署到 GitHub Pages
+1. 每次更改推送到 `main` 分支时，Vercel 会自动触发部署
+2. 为了确保 Vercel 自动构建正常工作，请使用以下命令配置 Git：
 
-无需手动部署步骤 - 只需将更改推送到 `main` 分支即可。
+```bash
+git config user.email "info@sfufellowship.org"
+git config user.name "Your Name"
+```
+
+3. Vercel 部署流程：
+   - 自动检测代码更改
+   - 设置 Node.js 环境
+   - 安装依赖
+   - 构建 Next.js 应用
+   - 自动部署到生产环境
+
+无需手动部署步骤 - 只需将更改推送到 `main` 分支即可。部署完成后，更改将在几分钟内生效。
 
 ### SEO 配置
 
@@ -208,18 +216,18 @@ export const images = {
 
 1. 双语支持：
 
-    - 中文（`/zh`）和英文（`/en`）版本的规范 URL
-    - 特定语言的元数据和 OpenGraph 标签
+   - 中文（`/zh`）和英文（`/en`）版本的规范 URL
+   - 特定语言的元数据和 OpenGraph 标签
 
 2. 搜索引擎优化：
 
-    - 两种语言的自定义标题和描述
-    - 针对 SFU 团契相关术语的综合关键词
-    - 用于更好的社交媒体分享的 OpenGraph 标签
-    - Google 站点验证
-    - 优化的机器人设置以获得更好的索引效果
+   - 两种语言的自定义标题和描述
+   - 针对 SFU 团契相关术语的综合关键词
+   - 用于更好的社交媒体分享的 OpenGraph 标签
+   - Google 站点验证
+   - 优化的机器人设置以获得更好的索引效果
 
 3. 社交媒体分享：
-    - OpenGraph 图片配置
-    - 自定义站点名称和描述
-    - 不同地区的区域设置
+   - OpenGraph 图片配置
+   - 自定义站点名称和描述
+   - 不同地区的区域设置
